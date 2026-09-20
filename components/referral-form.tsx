@@ -60,7 +60,7 @@ export function ReferralForm({
       </div>
 
       <div className="space-y-5 px-5 py-6 sm:px-6">
-        <div>
+        <div suppressHydrationWarning>
           <label htmlFor="partner_code" className={labelClass}>
             Partner code
           </label>
@@ -77,7 +77,7 @@ export function ReferralForm({
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <div>
+          <div suppressHydrationWarning>
             <label htmlFor="prospect_name" className={labelClass}>
               Prospect name
             </label>
@@ -109,7 +109,7 @@ export function ReferralForm({
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
-          <div>
+          <div suppressHydrationWarning>
             <label htmlFor="prospect_company" className={labelClass}>
               Prospect company
             </label>
