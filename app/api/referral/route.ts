@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-const WEBHOOK_URL = "https://gayiti.app.n8n.cloud/webhook-test/partner-referral"
+const WEBHOOK_URL = "https://gayiti.app.n8n.cloud/webhook/partner-referral"
 
 type ReferralPayload = {
   partner_code?: string
