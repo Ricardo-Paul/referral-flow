@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-const WEBHOOK_URL = "https://gayiti.app.n8n.cloud/webhook/partner-referral"
+const WEBHOOK_URL = process.env.REFERRAL_WEBHOOK_URL
 
 type ReferralPayload = {
   partner_code?: string
@@ -81,6 +81,13 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { error: `Missing required field: ${missing.join(", ")}` },
       { status: 400 },
+    )
+  }
+
+  if (!WEBHOOK_URL) {
+    return NextResponse.json(
+      { error: "Referral service is not configured. Please try again later." },
+      { status: 500 },
     )
   }
 
