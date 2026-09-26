@@ -47,13 +47,25 @@ export function ReferralApp() {
   return (
     <div className="min-h-svh bg-violet-50/60">
       <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-3xl items-center gap-2.5 px-4 py-4 sm:px-6">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
-            <Orbit className="h-4.5 w-4.5 text-white" aria-hidden="true" />
-          </span>
-          <span className="text-base font-semibold tracking-tight text-slate-900">
-            Orbit Partners
-          </span>
+        <div className="mx-auto flex w-full max-w-3xl items-center px-4 py-4 sm:px-6">
+          <div className="flex items-center gap-3">
+            <svg
+              viewBox="0 0 64 64"
+              className="h-8 w-8"
+              role="img"
+              aria-label="Orbit Partners logo"
+            >
+              <circle cx="32" cy="32" r="24" fill="#6d28d9" />
+              <path
+                d="M21 19.5v25h8.1c8.4 0 14.2-4.9 14.2-12.5S37.5 19.5 29.1 19.5H21Zm7.8 7.6h1.2c4.1 0 6.8 2.1 6.8 4.9s-2.7 4.9-6.8 4.9h-1.2v-9.8Z"
+                fill="white"
+              />
+              <circle cx="19" cy="45.5" r="4.5" fill="white" />
+            </svg>
+            <span className="text-base font-semibold tracking-[-0.02em] text-slate-900">
+              Orbit Partners
+            </span>
+          </div>
         </div>
       </header>
       <main>
