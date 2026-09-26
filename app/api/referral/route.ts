@@ -139,5 +139,37 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.json({ decision: normalizeDecision(parsed) }, { status: 200 })
+  // n8n stops executing when a node has no output data (e.g. the partner code
+  // isn't found in the sheet). That halts the workflow and returns a 200 with an
+  // empty body — treat it as a validation error rather than a false success.
+  const isEmpty =
+    parsed === null ||
+    parsed === undefined ||
+    (typeof parsed === "string" && parsed.trim() === "") ||
+    (Array.isArray(parsed) && parsed.length === 0) ||
+    (typeof parsed === "object" && !Array.isArray(parsed) && Object.keys(parsed as object).length === 0)
+
+  if (isEmpty) {
+    return NextResponse.json(
+      { error: `Unknown partner code "${body.partner_code}". Please check the code and try again.` },
+      { status: 422 },
+    )
+  }
+
+  const decision = normalizeDecision(parsed)
+
+  // If the workflow returned data but none of the decision fields are present,
+  // the referral wasn't actually scored — surface that instead of an empty card.
+  const hasDecision = Boolean(
+    decision.priority || decision.urgency || decision.recommended_action || decision.sla || decision.summary,
+  )
+
+  if (!hasDecision) {
+    return NextResponse.json(
+      { error: `Unknown partner code "${body.partner_code}". Please check the code and try again.` },
+      { status: 422 },
+    )
+  }
+
+  return NextResponse.json({ decision }, { status: 200 })
 }
