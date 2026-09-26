@@ -46,6 +46,16 @@ export function ReferralApp() {
 
   return (
     <div className="min-h-svh bg-violet-50/60">
+      <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-3xl items-center gap-2.5 px-4 py-4 sm:px-6">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
+            <Orbit className="h-4.5 w-4.5 text-white" aria-hidden="true" />
+          </span>
+          <span className="text-base font-semibold tracking-tight text-slate-900">
+            Orbit Partners
+          </span>
+        </div>
+      </header>
       <main>
         <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-violet-600">
