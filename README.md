@@ -1,33 +1,65 @@
-# referral-flow
+# Orbit Partners Referral Flow
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+## Problem
 
-## Built with v0
+Partners often receive opportunities through referrals but do not have a fast, structured way to submit them to the internal team. The goal of this app is to make referrals consistent, easy to capture, and easy to route into the right workflow without manual back-and-forth.
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+## What it does
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_5np45qLZ3zpPyLszPdA9cI49LHtl)
+This app is a lightweight partner referral intake form built with Next.js. It lets a partner:
 
-## Getting Started
+- enter a partner code
+- submit prospect details such as name, email, company, and intent
+- send the referral to a configured external webhook
+- receive a structured decision or error response from the workflow
+- see either a success state or a validation/error state in the UI
 
-First, run the development server:
+The app is designed for use as a front-end intake layer for an automation workflow, such as an n8n-based referral scoring or routing pipeline.
+
+## How it works
+
+1. The partner fills out the referral form.
+2. The client validates the required fields.
+3. The form posts the payload to the backend API route in `app/api/referral/route.ts`.
+4. The API forwards the data to `REFERRAL_WEBHOOK_URL`.
+5. The automation workflow returns a decision payload or a validation error.
+6. The UI renders the result in a success or error card.
+
+## Local setup
+
+Use the correct Node version first, then install and run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+corepack enable
+corepack prepare pnpm@12.3.4 --activate
+pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-## Learn More
+### Required environment variable
 
-To learn more, take a look at the following resources:
+Create a `.env.local` file and add:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+```bash
+REFERRAL_WEBHOOK_URL="https://your-webhook-url"
+```
+
+This value should point to the referral workflow endpoint that receives the form submission.
+
+## Known limitations
+
+- The app depends on an external webhook being available and correctly configured.
+- Validation is strict: all required fields must be present before a request is sent.
+- The workflow response format is normalized defensively, but it still assumes the automation returns a recognizable decision payload.
+- If the partner code is unknown or the workflow returns an empty result, the app treats it as a validation failure.
+- This is a single-page app and is not designed for multi-step enterprise workflow management.
+
+## Notes
+
+This project is intended to be a simple, partner-friendly referral experience that plugs into a broader automation pipeline rather than acting as a full CRM or internal operations system.
