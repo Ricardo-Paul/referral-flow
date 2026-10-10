@@ -2,9 +2,10 @@
 
 A production-grade partner referral intake system built across three modules: a validated webhook pipeline (Module 1), a live CRM integration with resilient error handling (Module 2), and a multi-agent AI reasoning layer (Module 3). The frontend is a Next.js app that partners use to submit referrals; the backend is an n8n workflow that validates, enriches, reasons over, and routes each referral end-to-end.
 
-**Live URL:** _[your Vercel URL]_
+**Live URL:** https://referral-flow-ivory.vercel.app/
+
 **n8n workflow:** `POST /webhook/partner-referral`
-**Repo:** https://github.com/Ricardo-Paul/referral-flow
+
 
 ---
 
